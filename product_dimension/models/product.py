@@ -9,59 +9,56 @@ from odoo import models, fields, api
 class Product(models.Model):
     _inherit = 'product.product'
 
-    @api.onchange('length', 'height', 'width', 'dimensional_uom_id')
+    def _compute_dimension_uom_name(self):
+        for template in self:
+            template.dimension_uom_name = self.env['product.template']\
+                ._get_dimension_uom_name_from_ir_config_parameter()
+
+    @api.onchange('length', 'height', 'width')
     def onchange_calculate_volume(self):
         self.volume = self.env['product.template']._calc_volume(
-            self.length, self.height, self.width, self.dimensional_uom_id)
-
-    @api.model
-    def _get_dimension_uom_domain(self):
-        return [
-            ('category_id', '=', self.env.ref('product.uom_categ_length').id)
-        ]
+            self.length, self.height, self.width)
 
     length = fields.Float()
     height = fields.Float()
     width = fields.Float()
-    dimensional_uom_id = fields.Many2one(
-        'product.uom',
-        'Dimensional UoM',
-        domain=lambda self: self._get_dimension_uom_domain(),
-        help='UoM for length, height, width')
+    dimension_uom_name = fields.Char(
+        string='Dimension unit of measure label',
+        compute='_compute_dimension_uom_name',
+        default=_compute_dimension_uom_name
+    )
 
 
 class ProductTemplate(models.Model):
     _inherit = 'product.template'
 
-    @api.model
-    def _calc_volume(self, length, height, width, uom_id):
+    def _compute_dimension_uom_name(self):
+        for template in self:
+            template.dimension_uom_name = self._get_dimension_uom_name_from_ir_config_parameter()
+
+    def _get_dimension_uom_name_from_ir_config_parameter(self):
+        get_param = self.env['ir.config_parameter'].sudo().get_param
+        return "ft" if get_param('product.volume_in_cubic_feet') == '1' else "m"
+
+    def _calc_volume(self, length, height, width):
+        # Get product volume config setting
         volume = 0
-        if length and height and width and uom_id:
-            length_m = self.convert_to_meters(length, uom_id)
-            height_m = self.convert_to_meters(height, uom_id)
-            width_m = self.convert_to_meters(width, uom_id)
-            volume = length_m * height_m * width_m
+        if length and height and width:
+            volume = length * height * width
 
         return volume
 
-    @api.onchange('length', 'height', 'width', 'dimensional_uom_id')
+    @api.onchange('length', 'height', 'width')
     def onchange_calculate_volume(self):
         self.volume = self._calc_volume(
-            self.length, self.height, self.width, self.dimensional_uom_id)
+            self.length, self.height, self.width)
 
-    def convert_to_meters(self, measure, dimensional_uom):
-        uom_meters = self.env.ref('product.product_uom_meter')
-
-        return dimensional_uom._compute_quantity(
-            qty=measure,
-            to_unit=uom_meters,
-            round=False,
-        )
-
-    length = fields.Float(related='product_variant_ids.length')
-    height = fields.Float(related='product_variant_ids.height')
-    width = fields.Float(related='product_variant_ids.width')
-    dimensional_uom_id = fields.Many2one(
-        'product.uom',
-        'Dimensional UoM', related='product_variant_ids.dimensional_uom_id',
-        help='UoM for length, height, width')
+    length = fields.Float(store=True, related='product_variant_ids.length')
+    height = fields.Float(store=True, related='product_variant_ids.height')
+    width = fields.Float(store=True, related='product_variant_ids.width')
+    dimension_uom_name = fields.Char(
+        related='product_variant_ids.dimension_uom_name',
+        string='Dimension unit of measure label',
+        compute='_compute_dimension_uom_name',
+        default=_compute_dimension_uom_name
+    )
