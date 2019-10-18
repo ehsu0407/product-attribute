@@ -2,69 +2,103 @@
 <odoo>
 
     <record model="ir.ui.view" id="product_normal_form_view">
-      <field name="name">product_normal_form_view</field>
-      <field name="model">product.product</field>
-      <field name="inherit_id" ref="product.product_variant_easy_edit_view"/>
-      <field name="arch" type="xml">
-        <xpath expr="//group[@name='weight']" position="after">
-          <group name="dimensions" string="Dimensions">
-            <label for="length"/>
-            <div class="o_row">
-              <field name="length" attrs="{'readonly':[('type','=','service')]}"/>
-              <span>
-                <field name="dimension_uom_name" modifiers="{'readonly':true}"/>
-              </span>
-            </div>
-            <label for="height"/>
-            <div class="o_row">
-              <field name="height" attrs="{'readonly':[('type','=','service')]}"/>
-              <span>
-                <field name="dimension_uom_name" modifiers="{'readonly':true}"/>
-              </span>
-            </div>
-            <label for="width"/>
-            <div class="o_row">
-              <field name="width" attrs="{'readonly':[('type','=','service')]}"/>
-              <span>
-                <field name="dimension_uom_name" modifiers="{'readonly':true}"/>
-              </span>
-            </div>
-          </group>
-        </xpath>
-      </field>
+        <field name="name">product_normal_form_view</field>
+        <field name="model">product.product</field>
+        <field name="inherit_id" ref="product.product_variant_easy_edit_view"/>
+        <field name="arch" type="xml">
+            <xpath expr="//group[@name='weight']" position="after">
+                <group name="dimensions" string="Dimensions">
+                    <label for="length"/>
+                    <div class="o_row">
+                        <field name="length" attrs="{'readonly':[('type','=','service')]}"/>
+                        <span>
+                            <field name="dimension_uom_name" modifiers="{'readonly':true}"/>
+                        </span>
+                    </div>
+                    <label for="height"/>
+                    <div class="o_row">
+                        <field name="height" attrs="{'readonly':[('type','=','service')]}"/>
+                        <span>
+                            <field name="dimension_uom_name" modifiers="{'readonly':true}"/>
+                        </span>
+                    </div>
+                    <label for="width"/>
+                    <div class="o_row">
+                        <field name="width" attrs="{'readonly':[('type','=','service')]}"/>
+                        <span>
+                            <field name="dimension_uom_name" modifiers="{'readonly':true}"/>
+                        </span>
+                    </div>
+                </group>
+            </xpath>
+        </field>
     </record>
 
     <record model="ir.ui.view" id="product_template_only_form_view">
-      <field name="name">product_template_form_view</field>
-      <field name="model">product.template</field>
-      <field name="inherit_id" ref="product.product_template_form_view"/>
-      <field name="arch" type="xml">
-        <xpath expr="//group[@name='group_lots_and_weight']" position="after">
-          <group string="Dimensions" name="dimensions" attrs="{'invisible': [('product_variant_count', '&gt;', 1)]}">
-            <label for="length"/>
-            <div class="o_row">
-              <field name="length" attrs="{'readonly':[('type','=','service')]}"/>
-              <span>
-                <field name="dimension_uom_name" modifiers="{'readonly':true}"/>
-              </span>
-            </div>
-            <label for="height"/>
-            <div class="o_row">
-            <field name="height" attrs="{'readonly':[('type','=','service')]}"/>
-              <span>
-                <field name="dimension_uom_name" modifiers="{'readonly':true}"/>
-              </span>
-            </div>
-            <label for="width"/>
-            <div class="o_row">
-            <field name="width" attrs="{'readonly':[('type','=','service')]}"/>
-              <span>
-                <field name="dimension_uom_name" modifiers="{'readonly':true}"/>
-              </span>
-            </div>
-          </group>
-        </xpath>
-      </field>
+        <field name="name">product_template_form_view</field>
+        <field name="model">product.template</field>
+        <field name="inherit_id" ref="product.product_template_form_view"/>
+        <field name="arch" type="xml">
+            <xpath expr="//group[@name='group_lots_and_weight']" position="after">
+                <group string="Dimensions" name="dimensions"
+                       attrs="{'invisible': [('product_variant_count', '&gt;', 1)]}">
+                    <label for="length"/>
+                    <div class="o_row">
+                        <field name="length" attrs="{'readonly':[('type','=','service')]}"/>
+                        <span>
+                            <field name="dimension_uom_name" modifiers="{'readonly':true}"/>
+                        </span>
+                    </div>
+                    <label for="height"/>
+                    <div class="o_row">
+                        <field name="height" attrs="{'readonly':[('type','=','service')]}"/>
+                        <span>
+                            <field name="dimension_uom_name" modifiers="{'readonly':true}"/>
+                        </span>
+                    </div>
+                    <label for="width"/>
+                    <div class="o_row">
+                        <field name="width" attrs="{'readonly':[('type','=','service')]}"/>
+                        <span>
+                            <field name="dimension_uom_name" modifiers="{'readonly':true}"/>
+                        </span>
+                    </div>
+                </group>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="product_packaging_form_view" model="ir.ui.view">
+        <field name="name">product.dimension.product.packaging.form</field>
+        <field name="model">product.packaging</field>
+        <field name="inherit_id" ref="product.product_packaging_form_view"/>
+        <field name="arch" type="xml">
+            <xpath expr="//group[@name='qty']" position="after">
+                <group name="dimensions" string="Dimensions">
+                    <label for="length"/>
+                    <div class="o_row">
+                        <field name="length"/>
+                        <span>
+                            <field name="dimension_uom_name" modifiers="{'readonly':true}"/>
+                        </span>
+                    </div>
+                    <label for="height"/>
+                    <div class="o_row">
+                        <field name="height"/>
+                        <span>
+                            <field name="dimension_uom_name" modifiers="{'readonly':true}"/>
+                        </span>
+                    </div>
+                    <label for="width"/>
+                    <div class="o_row">
+                        <field name="width"/>
+                        <span>
+                            <field name="dimension_uom_name" modifiers="{'readonly':true}"/>
+                        </span>
+                    </div>
+                </group>
+            </xpath>
+        </field>
     </record>
 
 </odoo>

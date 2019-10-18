@@ -56,9 +56,12 @@ class ProductTemplate(models.Model):
     length = fields.Float(store=True, related='product_variant_ids.length')
     height = fields.Float(store=True, related='product_variant_ids.height')
     width = fields.Float(store=True, related='product_variant_ids.width')
-    dimension_uom_name = fields.Char(
-        related='product_variant_ids.dimension_uom_name',
-        string='Dimension unit of measure label',
-        compute='_compute_dimension_uom_name',
-        default=_compute_dimension_uom_name
-    )
+    dimension_uom_name = fields.Char(related='product_variant_ids.dimension_uom_name')
+
+class ProductPackaging(models.Model):
+    _inherit = 'product.packaging'
+
+    length = fields.Float()
+    height = fields.Float()
+    width = fields.Float()
+    dimension_uom_name = fields.Char(related='product_id.dimension_uom_name')
