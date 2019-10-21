@@ -15,16 +15,16 @@
                             <field name="dimension_uom_name" modifiers="{'readonly':true}"/>
                         </span>
                     </div>
-                    <label for="height"/>
+                    <label for="width"/>
                     <div class="o_row">
-                        <field name="height" attrs="{'readonly':[('type','=','service')]}"/>
+                        <field name="width" attrs="{'readonly':[('type','=','service')]}"/>
                         <span>
                             <field name="dimension_uom_name" modifiers="{'readonly':true}"/>
                         </span>
                     </div>
-                    <label for="width"/>
+                    <label for="height"/>
                     <div class="o_row">
-                        <field name="width" attrs="{'readonly':[('type','=','service')]}"/>
+                        <field name="height" attrs="{'readonly':[('type','=','service')]}"/>
                         <span>
                             <field name="dimension_uom_name" modifiers="{'readonly':true}"/>
                         </span>
@@ -49,16 +49,16 @@
                             <field name="dimension_uom_name" modifiers="{'readonly':true}"/>
                         </span>
                     </div>
-                    <label for="height"/>
+                    <label for="width"/>
                     <div class="o_row">
-                        <field name="height" attrs="{'readonly':[('type','=','service')]}"/>
+                        <field name="width" attrs="{'readonly':[('type','=','service')]}"/>
                         <span>
                             <field name="dimension_uom_name" modifiers="{'readonly':true}"/>
                         </span>
                     </div>
-                    <label for="width"/>
+                    <label for="height"/>
                     <div class="o_row">
-                        <field name="width" attrs="{'readonly':[('type','=','service')]}"/>
+                        <field name="height" attrs="{'readonly':[('type','=','service')]}"/>
                         <span>
                             <field name="dimension_uom_name" modifiers="{'readonly':true}"/>
                         </span>
@@ -82,16 +82,16 @@
                             <field name="dimension_uom_name" modifiers="{'readonly':true}"/>
                         </span>
                     </div>
-                    <label for="height"/>
+                    <label for="width"/>
                     <div class="o_row">
-                        <field name="height"/>
+                        <field name="width"/>
                         <span>
                             <field name="dimension_uom_name" modifiers="{'readonly':true}"/>
                         </span>
                     </div>
-                    <label for="width"/>
+                    <label for="height"/>
                     <div class="o_row">
-                        <field name="width"/>
+                        <field name="height"/>
                         <span>
                             <field name="dimension_uom_name" modifiers="{'readonly':true}"/>
                         </span>
