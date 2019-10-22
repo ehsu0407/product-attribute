@@ -19,9 +19,9 @@ class Product(models.Model):
         self.volume = self.env['product.template']._calc_volume(
             self.length, self.height, self.width)
 
-    length = fields.Float()
-    height = fields.Float()
-    width = fields.Float()
+    length = fields.Float(digits=6)
+    height = fields.Float(digits=6)
+    width = fields.Float(digits=6)
     dimension_uom_name = fields.Char(
         string='Dimension unit of measure label',
         compute='_compute_dimension_uom_name',
@@ -53,15 +53,15 @@ class ProductTemplate(models.Model):
         self.volume = self._calc_volume(
             self.length, self.height, self.width)
 
-    length = fields.Float(store=True, related='product_variant_ids.length')
-    height = fields.Float(store=True, related='product_variant_ids.height')
-    width = fields.Float(store=True, related='product_variant_ids.width')
+    length = fields.Float(store=True, digits=6, related='product_variant_ids.length')
+    height = fields.Float(store=True, digits=6, related='product_variant_ids.height')
+    width = fields.Float(store=True, digits=6, related='product_variant_ids.width')
     dimension_uom_name = fields.Char(related='product_variant_ids.dimension_uom_name')
 
 class ProductPackaging(models.Model):
     _inherit = 'product.packaging'
 
-    length = fields.Float()
-    height = fields.Float()
-    width = fields.Float()
+    length = fields.Float(digits=6)
+    height = fields.Float(digits=6)
+    width = fields.Float(digits=6)
     dimension_uom_name = fields.Char(related='product_id.dimension_uom_name')
